@@ -1,11 +1,6 @@
 <div align="center">
 
-# trama.
-### Un lugar para cada producto.
-
-**Explora · Crea · Edita · Aprende**
-
-Un catálogo con identidad propia para practicar el consumo de una API pública.
+Un catálogo para practicar el consumo de una API pública.
 
 `HTML5` · `CSS3` · `JavaScript` · `Fetch API` · `DummyJSON`
 
@@ -32,7 +27,7 @@ La interfaz se adapta a dispositivos móviles e incluye validación de formulari
 
 ## ⚡ Ponlo en marcha
 
-1. Descarga el proyecto y conserva `index.html`, `styles.css` y `app.js` en la misma carpeta.
+1. Descarga el proyecto
 2. Abre la carpeta en **Visual Studio Code**.
 3. Con la extensión **Live Server** instalada, haz clic derecho sobre `index.html` y selecciona **Open with Live Server**.
 4. Explora el catálogo y prueba sus operaciones.
@@ -93,8 +88,6 @@ Las solicitudes se centralizan en `request()`, que utiliza `fetch` con `async/aw
 ---
 
 <div align="center">
-
-**trama.** · Objetos cotidianos, bien organizados.
 
 *Proyecto académico de consumo de APIs públicas.*
 
