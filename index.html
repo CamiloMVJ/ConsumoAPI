@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#183d35" />
+    <title>Trama — Catálogo de productos</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script src="./js/app.js" defer></script>
+  </head>
+  <body>
+    <!-- <header class="topbar">
+      <a class="brand" href="index.html"
+        ><span class="brand-icon">t.</span> trama<span class="brand-sub"
+          >PRODUCT STUDIO</span
+        ></a
+      ><span class="connection">● DummyJSON Products</span>
+    </header> -->
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">OBJETOS COTIDIANOS, BIEN ORGANIZADOS</p>
+          <h1>Un lugar para<br />cada producto<span>.</span></h1>
+          <p class="intro">
+            Explora el catálogo, descubre los detalles y prueba nuevas ideas.
+          </p>
+        </div>
+        <div class="hero-note">
+          <span class="note-number">01 /</span>
+          <p>Tu catálogo.<br />Tu espacio de trabajo.</p>
+          <button id="create-button" class="button primary" type="button">
+            ＋ Crear producto
+          </button>
+        </div>
+      </section>
+      <aside class="notice">
+        <span>LABORATORIO</span> Las creaciones, ediciones y eliminaciones son
+        simuladas por DummyJSON. El catálogo remoto no cambia; consulta cada
+        resultado en el registro inferior.
+      </aside>
+      <section class="catalog" aria-labelledby="catalog-title">
+        <div class="section-heading">
+          <h2 id="catalog-title">
+            El catálogo <span id="total-count">—</span>
+          </h2>
+          <button type="button" id="refresh-button" class="text-button">
+            ↻ Actualizar
+          </button>
+        </div>
+        <form id="search-form" class="filters">
+          <!-- Buscador de productos -->
+          <div class="search-group">
+            <label class="sr-only" for="search"> Buscar por nombre </label>
+
+            <input
+              id="search"
+              type="search"
+              placeholder="Buscar un producto…"
+              maxlength="100"
+            />
+
+            <button class="button dark" type="submit">Buscar</button>
+          </div>
+
+          <!-- Filtro de categorías del catálogo -->
+          <div>
+            <label for="category">Categoría</label>
+
+            <select id="category">
+              <option value="">Todas las categorías</option>
+            </select>
+          </div>
+
+          <!-- Ordenamiento -->
+          <div>
+            <label for="sort">Ordenar por</label>
+
+            <select id="sort">
+              <option value="title">Nombre · A–Z</option>
+              <option value="price">Precio · menor primero</option>
+            </select>
+          </div>
+        </form>
+        <p id="status" class="status" role="status" aria-live="polite">
+          Preparando el catálogo…
+        </p>
+        <div id="products" class="product-grid" aria-busy="true"></div>
+        <nav class="pagination" aria-label="Paginación">
+          <button id="previous" class="button outline" type="button" disabled>
+            ← Anterior</button
+          ><span id="page-info">Página 1</span
+          ><button id="next" class="button outline" type="button" disabled>
+            Siguiente →
+          </button>
+        </nav>
+      </section>
+      <section class="activity" aria-labelledby="activity-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">DETRÁS DE CADA ACCIÓN</p>
+            <h2 id="activity-title">Registro de solicitudes</h2>
+          </div>
+          <span class="activity-label">HTTP / JSON</span>
+        </div>
+        <p class="muted">
+          Abre una solicitud para revisar el cuerpo enviado y la respuesta real
+          de la API.
+        </p>
+        <div id="request-log" aria-live="polite">
+          <p class="muted">Las solicitudes aparecerán aquí.</p>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <span class="brand">trama.</span
+      ><span>Un ejercicio de exploración y gestión de productos.</span
+      ><a
+        href="https://dummyjson.com/docs/products"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Documentación ↗</a
+      >
+    </footer>
+    <dialog id="product-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-header">
+        <p class="eyebrow" id="dialog-kicker">PRODUCTO</p>
+        <button
+          class="close-button"
+          id="close-dialog"
+          aria-label="Cerrar ventana"
+          type="button"
+        >
+          ×
+        </button>
+      </div>
+      <h2 id="dialog-title">Detalle del producto</h2>
+      <div id="detail-view"></div>
+      <form id="product-form" hidden>
+        <p id="form-help" class="muted"></p>
+        <div class="form-grid">
+          <label
+            >Nombre<input
+              name="title"
+              id="product-title"
+              maxlength="120"
+              required
+          /></label>
+          <label for="product-category">
+            Categoría
+
+            <select name="category" id="product-category" required>
+              <option value="" disabled selected>
+                Selecciona una categoría
+              </option>
+            </select> </label
+          ><label
+            >Precio (USD)<input
+              name="price"
+              id="product-price"
+              type="number"
+              min="0"
+              max="10000000"
+              step="0.01"
+              required /></label
+          ><label
+            >Existencias<input
+              name="stock"
+              id="product-stock"
+              type="number"
+              min="0"
+              max="1000000"
+              step="1"
+              required /></label
+          ><label class="full-width"
+            >Descripción<textarea
+              name="description"
+              id="product-description"
+              rows="3"
+              maxlength="2000"
+              required
+            ></textarea>
+          </label>
+        </div>
+        <p id="form-error" class="error" role="alert"></p>
+        <div class="form-actions">
+          <button type="button" id="cancel-form" class="button outline">
+            Cancelar</button
+          ><button id="save-button" type="submit" class="button primary">
+            Guardar
+          </button>
+        </div>
+      </form>
+      <div id="delete-view" hidden>
+        <p>
+          Se enviará una solicitud <strong>DELETE</strong> para este producto.
+          La eliminación es simulada y no modifica el catálogo remoto.
+        </p>
+        <div class="form-actions">
+          <button type="button" id="cancel-delete" class="button outline">
+            Cancelar</button
+          ><button type="button" id="confirm-delete" class="button danger">
+            Confirmar eliminación
+          </button>
+        </div>
+      </div>
+    </dialog>
+    <datalist id="category-options"></datalist>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>
